@@ -1,0 +1,33 @@
+{
+  "name": "scrollsense",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ScrollSense - Understand your scrolling. Reclaim your time.",
+  "workspaces": [
+    "extension",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build:extension && npm run build:backend && npm run build:frontend",
+    "build:extension": "npm --workspace=extension run build",
+    "build:backend": "npm --workspace=backend run build",
+    "build:frontend": "npm --workspace=frontend run build",
+    "test": "npm run test:extension:run && npm run test:backend && npm run test:frontend && npm run test:ai",
+    "test:extension": "npm --workspace=extension run test",
+    "test:extension:run": "npm --workspace=extension run test:run",
+    "test:backend": "npm --workspace=backend run test:run",
+    "test:frontend": "npm --workspace=frontend run test:run",
+    "test:ai": "cd ai-service && python -m pytest",
+    "dev:backend": "npm --workspace=backend run dev",
+    "dev:frontend": "npm --workspace=frontend run dev",
+    "dev:ai": "cd ai-service && python -m uvicorn app.main:app --port 8000 --reload"
+  },
+  "keywords": [
+    "digital-wellbeing",
+    "chrome-extension",
+    "scrollsense"
+  ],
+  "author": "ScrollSense Team",
+  "license": "MIT"
+}
