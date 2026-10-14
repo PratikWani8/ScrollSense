@@ -13,6 +13,7 @@
     "build:extension": "npm --workspace=extension run build",
     "build:backend": "npm --workspace=backend run build",
     "build:frontend": "npm --workspace=frontend run build",
+    "package:extension": "npm --workspace=extension run package",
     "test": "npm run test:extension:run && npm run test:backend && npm run test:frontend && npm run test:ai",
     "test:extension": "npm --workspace=extension run test",
     "test:extension:run": "npm --workspace=extension run test:run",
