@@ -1,0 +1,23 @@
+{
+  "name": "scrollsense-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ScrollSense Chrome Extension (Manifest V3) for tracking Instagram Reels & YouTube Shorts",
+  "scripts": {
+    "dev": "node scripts/build.mjs --watch",
+    "build": "node scripts/build.mjs",
+    "package": "node scripts/package.mjs",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.306",
+    "@types/node": "^22.13.9",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vite-plugin-static-copy": "^2.3.0",
+    "vitest": "^3.0.7"
+  }
+}
