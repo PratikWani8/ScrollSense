@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrollSense</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body class="bg-navy text-slate">
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">ScrollSense</h1>
+          <p class="brand-tagline">Reclaim your time</p>
+        </div>
+      </div>
+      <div id="status-badge" class="badge badge-idle">
+        <span class="badge-dot"></span>
+        <span id="status-text">Idle</span>
+      </div>
+    </header>
+
+    <!-- Active Session Hero Card -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <span class="card-label">Active Session</span>
+        <span id="platform-pill" class="platform-pill hidden"></span>
+      </div>
+      <div class="hero-time" id="session-timer">00:00</div>
+      <div class="hero-sub" id="session-sub">No active feed detected</div>
+    </section>
+
+    <!-- Intent-Aware Scrolling Card -->
+    <section class="card intent-card" id="intent-card">
+      <div class="intent-header">
+        <span class="card-label">Session Intention</span>
+        <span id="intent-badge" class="intent-badge hidden">None</span>
+      </div>
+
+      <!-- Active Intention View -->
+      <div id="intent-active-view" class="hidden">
+        <div class="intent-progress-row">
+          <span class="intent-sub" id="intent-type-label">🎯 Learning</span>
+          <span class="intent-time-label" id="intent-time-progress">0m / 10m</span>
+        </div>
+        <div class="score-bar-container mt-1">
+          <div class="score-bar" id="intent-bar-fill" style="width: 0%;"></div>
+        </div>
+        <div class="intent-status-text" id="intent-status-text">On track</div>
+        <div class="intent-active-actions mt-1">
+          <button id="intent-extend-btn" class="btn btn-secondary btn-sm">+5m More</button>
+          <button id="intent-break-btn" class="btn btn-primary btn-sm">Take a Break</button>
+        </div>
+      </div>
+
+      <!-- Setup Intention View -->
+      <div id="intent-setup-view">
+        <p class="sync-text">Set your intent before or during scrolling:</p>
+        <div class="intent-select-row">
+          <select id="intent-type-select" class="input-sm">
+            <option value="Learning">Learning</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Finding Something Specific">Finding Something Specific</option>
+            <option value="Taking a Short Break" selected>Taking a Short Break</option>
+            <option value="Other">Other</option>
+          </select>
+          <select id="intent-duration-select" class="input-sm select-short">
+            <option value="10" id="intent-10s-opt" class="hidden">10s (Test)</option>
+            <option value="300">5m</option>
+            <option value="600" selected>10m</option>
+            <option value="900">15m</option>
+            <option value="1200">20m</option>
+            <option value="1800">30m</option>
+          </select>
+        </div>
+        <button id="set-intent-btn" class="btn btn-secondary btn-sm mt-1">Commit Intent</button>
+      </div>
+    </section>
+
+    <!-- Personal Trigger Quick Tag -->
+    <section class="card trigger-card" id="trigger-card">
+      <div class="intent-header">
+        <span class="card-label">Mindful Trigger Check-in</span>
+        <span id="context-badge" class="text-xs text-muted">Optional</span>
+      </div>
+      <p class="sync-text">What sparked this browsing impulse?</p>
+      <div class="trigger-chips-grid">
+        <button class="trigger-chip" data-context="Boredom">Boredom</button>
+        <button class="trigger-chip" data-context="Taking a break">Break</button>
+        <button class="trigger-chip" data-context="Procrastination">Procrastination</button>
+        <button class="trigger-chip" data-context="Stress">Stress</button>
+        <button class="trigger-chip" data-context="Habit / Automatic Opening">Habit</button>
+        <button class="trigger-chip" data-context="Other">Other</button>
+      </div>
+      <div id="trigger-feedback" class="trigger-feedback hidden">Logged!</div>
+    </section>
+
+    <!-- Today's Stats Grid -->
+    <section class="stats-grid">
+      <div class="card stat-card">
+        <div class="stat-value" id="today-total-time">0m</div>
+        <div class="stat-label">Today's Feed Time</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" id="today-reels-views">0</div>
+        <div class="stat-label">Reels Views (Est.)</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" id="today-shorts-views">0</div>
+        <div class="stat-label">Shorts Views (Est.)</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" id="today-sessions">0</div>
+        <div class="stat-label">Feed Sessions</div>
+      </div>
+    </section>
+
+    <!-- Doomscroll Behavioral Meter -->
+    <section class="card doomscroll-card">
+      <div class="doomscroll-header">
+        <span class="card-label">Habit Risk Score</span>
+        <span id="score-classification" class="score-badge">Within goal</span>
+      </div>
+      <div class="score-row">
+        <div class="score-number" id="score-value">0</div>
+        <div class="score-bar-container">
+          <div class="score-bar" id="score-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div id="contributing-factors" class="factors-list"></div>
+    </section>
+
+    <!-- Detector Health Indicator -->
+    <section class="card health-card">
+      <div class="health-row">
+        <span class="health-title">Detector Health</span>
+        <span id="health-status" class="health-tag">Ready</span>
+      </div>
+      <div class="health-desc" id="health-details">Monitoring Instagram Reels & YouTube Shorts</div>
+    </section>
+
+    <!-- Cloud Synchronization & Pairing -->
+    <section class="card sync-card">
+      <div class="sync-header">
+        <span class="card-label">Cloud Synchronization</span>
+        <span id="sync-badge" class="sync-badge unpaired">Unpaired</span>
+      </div>
+      <div id="sync-content-unpaired" class="sync-details">
+        <p class="sync-text">Connect with your ScrollSense web dashboard to visualize habits across devices.</p>
+        <button id="toggle-server-config-btn" class="server-config-toggle">⚙ Custom Server URL</button>
+        <div id="server-config-container" class="hidden">
+          <input type="text" id="custom-backend-url" class="input-sm" placeholder="http://localhost:5000/api/v1" />
+        </div>
+        <button id="connect-dashboard-btn" class="btn btn-secondary btn-sm">
+          Connect Dashboard
+        </button>
+      </div>
+      <div id="sync-content-pairing" class="sync-details hidden">
+        <p class="sync-text">Enter this pairing code on your dashboard:</p>
+        <div class="pairing-code" id="display-pairing-code">------</div>
+        <p class="sync-sub">Awaiting confirmation...</p>
+      </div>
+      <div id="sync-content-paired" class="sync-details hidden">
+        <div class="sync-info-row">
+          <span class="sync-label" id="sync-device-name">Connected</span>
+          <span class="sync-queue" id="sync-queue-count">0 queued</span>
+        </div>
+        <div class="sync-actions-row">
+          <button id="sync-now-btn" class="btn btn-primary btn-sm">Sync Now</button>
+          <button id="disconnect-btn" class="btn btn-secondary btn-sm">Disconnect</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alert & Notification Settings -->
+    <section class="card settings-card">
+      <div class="settings-header">
+        <span class="card-label">Alert & Feedback Settings</span>
+      </div>
+      <div class="settings-list">
+        <label class="setting-item" for="toggle-notif-input">
+          <div class="setting-info">
+            <span class="setting-title">Desktop Notifications</span>
+            <span class="setting-desc">Alert when planned session limit is reached</span>
+          </div>
+          <div class="switch">
+            <input type="checkbox" id="toggle-notif-input" checked />
+            <span class="slider"></span>
+          </div>
+        </label>
+        <label class="setting-item" for="toggle-inpage-input">
+          <div class="setting-info">
+            <span class="setting-title">In-Page Floating Alert</span>
+            <span class="setting-desc">Show on-screen reminder over video feed</span>
+          </div>
+          <div class="switch">
+            <input type="checkbox" id="toggle-inpage-input" checked />
+            <span class="slider"></span>
+          </div>
+        </label>
+        <label class="setting-item" for="toggle-devtest-input">
+          <div class="setting-info">
+            <span class="setting-title">Dev Testing Mode (10s)</span>
+            <span class="setting-desc">Fast 10s limits for rapid testing</span>
+          </div>
+          <div class="switch">
+            <input type="checkbox" id="toggle-devtest-input" />
+            <span class="slider"></span>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="actions-section">
+      <button id="toggle-tracking-btn" class="btn btn-primary">
+        Pause Tracking
+      </button>
+      <button id="reset-data-btn" class="btn btn-secondary">
+        Reset Data
+      </button>
+    </section>
+
+    <!-- Privacy Footer -->
+    <footer class="footer">
+      <p>🔒 100% Local-First. No URLs, titles, or browsing history stored.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.ts"></script>
+</body>
+</html>
