@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: scrollsense-mongodb
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - scrollsense-network
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', 'db.adminCommand("ping")']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # 2. Python FastAPI AI Microservice
+  ai-service:
+    build:
+      context: .
+      dockerfile: ai-service/Dockerfile
+    container_name: scrollsense-ai-service
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - LLM_PROVIDER=${LLM_PROVIDER:-fallback}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - INTERNAL_API_KEY=${INTERNAL_API_KEY:-scrollsense_internal_ai_secret_key}
+      - ALLOWED_ORIGINS=http://localhost:5000,http://backend:5000,http://localhost:5173,http://localhost:80
+    networks:
+      - scrollsense-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # 3. Node.js Express Backend
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: scrollsense-backend
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - API_PREFIX=/api/v1
+      - MONGODB_URI=mongodb://mongodb:27017/scrollsense
+      - JWT_SECRET=${JWT_SECRET:-scrollsense_fallback_secret_key_at_least_16_chars}
+      - JWT_EXPIRES_IN=7d
+      - CORS_ORIGIN=http://localhost:5173,http://localhost:3000,http://localhost,http://frontend
+      - DEVICE_TOKEN_SALT=${DEVICE_TOKEN_SALT:-scrollsense_device_salt_2026}
+      - AI_SERVICE_URL=http://ai-service:8000
+      - AI_SERVICE_KEY=${INTERNAL_API_KEY:-scrollsense_internal_ai_secret_key}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    networks:
+      - scrollsense-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:5000/health']
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # 4. React Frontend (Nginx SPA)
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        - VITE_API_URL=/api/v1
+    container_name: scrollsense-frontend
+    restart: unless-stopped
+    ports:
+      - '3000:80'
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - scrollsense-network
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+networks:
+  scrollsense-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
