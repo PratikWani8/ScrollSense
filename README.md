@@ -64,40 +64,7 @@ ScrollSense/
 ---
 
 
-## 2. Environment Configuration
-
-### Backend (`backend/.env`)
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/scrollsense
-JWT_SECRET=scrollsense_super_secret_jwt_key_2026_production
-CORS_ORIGIN=http://localhost:5173
-AI_SERVICE_URL=http://localhost:8000
-NODE_ENV=development
-```
-
-### AI Microservice (`ai-service/.env`)
-```env
-PORT=8000
-HOST=0.0.0.0
-LLM_PROVIDER=fallback      # "fallback", "gemini", or "openai"
-# GEMINI_API_KEY=your_gemini_key_here
-# OPENAI_API_KEY=your_openai_key_here
-LLM_MODEL_NAME=gemini-1.5-flash
-TIMEOUT_SECONDS=10.0
-MAX_RETRIES=2
-CACHE_TTL_SECONDS=3600
-ALLOWED_ORIGINS=http://localhost:5000,http://localhost:5173
-```
-
-### Frontend (`frontend/.env`)
-```env
-VITE_API_URL=http://localhost:5000/api/v1
-```
-
----
-
-## 3. Testing & Verification
+## 2. Testing & Verification
 
 The monorepo contains **98 automated tests across 24 test suites**, all passing:
 
@@ -121,7 +88,7 @@ npm run package:extension
 
 ---
 
-## 4. How to Run Locally
+## 3. How to Run Locally
 
 ### Prerequisites
 - Node.js >= 18
@@ -154,7 +121,7 @@ npm run dev:frontend
 
 ---
 
-## 5. Verified Behaviors & Known Boundaries
+## 4. Verified Behaviors & Known Boundaries
 
 ### Verified Behaviors
 - ✅ Deterministic doomscroll scoring guarantees identical scores for identical inputs.
