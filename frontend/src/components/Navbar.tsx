@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Sparkles, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -13,15 +13,14 @@ export const Navbar: React.FC = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Brand */}
           <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-veya-indigo via-[#2E284A] to-veya-surface border border-veya-borderLight flex items-center justify-center shadow-lg shadow-black/40 group-hover:border-veya-orchid/60 transition-all">
-              <Sparkles className="w-4 h-4 text-veya-orchid group-hover:scale-110 transition-transform" />
-            </div>
+            <img
+              src="/scrollsense_logo.png"
+              alt="ScrollSense logo"
+              className="w-9 h-9 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform"
+            />
             <div>
               <span className="text-base sm:text-lg font-bold tracking-tight text-veya-offwhite flex items-center gap-1.5 font-sans">
                 ScrollSense
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-full bg-veya-orchid/15 text-veya-orchid border border-veya-orchid/30">
-                  v1.0
-                </span>
               </span>
               <p className="text-[11px] text-veya-muted leading-none">Reclaim your time</p>
             </div>
