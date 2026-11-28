@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Sparkles, ShieldCheck, ArrowRight, AlertCircle, Clock, User, Mail, Lock } from 'lucide-react';
+import { ShieldCheck, ArrowRight, AlertCircle, Clock, User, Mail, Lock } from 'lucide-react';
 
 export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -73,9 +73,11 @@ export const RegisterPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-veya-indigo via-[#2E284A] to-veya-surface border border-veya-borderLight text-veya-orchid shadow-lg shadow-black/40 mb-3">
-            <Sparkles className="w-6 h-6" />
-          </div>
+          <img
+            src="/scrollsense_logo.png"
+            alt="ScrollSense logo"
+            className="w-14 h-14 object-contain mx-auto drop-shadow-lg mb-3"
+          />
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-veya-offwhite">
             Create your account
           </h1>

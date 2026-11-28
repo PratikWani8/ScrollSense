@@ -437,9 +437,11 @@ export const LandingPage: React.FC = () => {
       <footer className="border-t border-veya-border/70 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full text-xs text-veya-muted">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg bg-veya-surface border border-veya-border flex items-center justify-center text-veya-orchid">
-              <Sparkles className="w-3.5 h-3.5" />
-            </div>
+            <img
+              src="/scrollsense_logo.png"
+              alt="ScrollSense logo"
+              className="w-8 h-8 object-contain"
+            />
             <div>
               <span className="font-semibold text-veya-offwhite text-sm">ScrollSense</span>
               <p className="text-[11px] text-veya-muted">Designed for mindful digital wellbeing.</p>
