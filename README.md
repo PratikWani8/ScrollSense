@@ -119,7 +119,36 @@ ScrollSense/
 
 ---
 
+<<<<<<< HEAD
 ## Getting Started
+=======
+
+## 2. Testing & Verification
+
+The monorepo contains **98 automated tests across 24 test suites**, all passing:
+
+```bash
+# Run all tests across Extension, Backend, Frontend, and AI Service (98 tests)
+npm test
+
+# Run individual test suites
+npm run test:extension:run   # 44 tests (detectors, estimation, state machine, sync manager)
+npm run test:backend         # 31 tests (auth, pairing, sync, doomscroll engine, retention, insights)
+npm run test:frontend        # 13 tests (MetricCard, DoomscrollMeter, BreakdownModal, PublicPrivacyPage, etc.)
+npm run test:ai              # 10 tests (health, analytics, pattern detector, internal auth, generator)
+
+# Build all packages
+npm run build
+
+# Package Chrome Extension into store-ready distribution .zip
+npm run package:extension
+# Generates extension/dist-zip/scrollsense-extension-v1.0.0.zip
+```
+
+---
+
+## 3. How to Run Locally
+>>>>>>> a2c63252232694df1f02abef67ff31e0dc117263
 
 ### Prerequisites
 
@@ -218,7 +247,11 @@ npm run build:extension
 
 ---
 
+<<<<<<< HEAD
 ## API Overview
+=======
+## 4. Verified Behaviors & Known Boundaries
+>>>>>>> a2c63252232694df1f02abef67ff31e0dc117263
 
 The Express backend exposes versioned endpoints under `/api/v1`:
 
