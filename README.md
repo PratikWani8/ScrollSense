@@ -119,9 +119,7 @@ ScrollSense/
 
 ---
 
-<<<<<<< HEAD
 ## Getting Started
-=======
 
 ## 2. Testing & Verification
 
@@ -148,7 +146,6 @@ npm run package:extension
 ---
 
 ## 3. How to Run Locally
->>>>>>> a2c63252232694df1f02abef67ff31e0dc117263
 
 ### Prerequisites
 
