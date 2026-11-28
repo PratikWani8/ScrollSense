@@ -7,11 +7,11 @@
   </p>
 </div>
 
-[![Release](https://img.shields.io/github/v/release/PratikWani8/ScrollSense?display_name=tag&label=Release&color=6b34db)](https://github.com/PratikWani8/ScrollSense/releases/latest)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
+[![Release](https://img.shields.io/github/v/release/PratikWani8/ScrollSense?display_name=tag&label=Release&color=6b34db)](https://github.com/PratikWani8/ScrollSense/releases/latest)&nbsp;&nbsp;
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)&nbsp;&nbsp;
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)&nbsp;&nbsp;
+![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)&nbsp;&nbsp;
 ![Tests](https://img.shields.io/badge/Tests-All%20Passing-success?logo=vitest&logoColor=white)
-
 ---
 
 ## Overview
