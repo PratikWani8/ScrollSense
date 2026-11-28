@@ -7,11 +7,14 @@
   </p>
 </div>
 
-[![Release](https://img.shields.io/github/v/release/PratikWani8/ScrollSense?display_name=tag&label=Release&color=6b34db)](https://github.com/PratikWani8/ScrollSense/releases/latest)&nbsp;&nbsp;
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)&nbsp;&nbsp;
-![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)&nbsp;&nbsp;
-![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)&nbsp;&nbsp;
+[![Release](https://img.shields.io/github/v/release/PratikWani8/ScrollSense?display_name=tag&label=Release&color=6b34db)](https://github.com/PratikWani8/ScrollSense/releases/latest)&nbsp;
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)&nbsp;
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)&nbsp;
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)&nbsp;
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?logo=fastapi&logoColor=white)&nbsp;
+![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)&nbsp;
 ![Tests](https://img.shields.io/badge/Tests-All%20Passing-success?logo=vitest&logoColor=white)
+
 ---
 
 ## Overview
@@ -121,31 +124,7 @@ ScrollSense/
 
 ## Getting Started
 
-## 2. Testing & Verification
-
-The monorepo contains **98 automated tests across 24 test suites**, all passing:
-
-```bash
-# Run all tests across Extension, Backend, Frontend, and AI Service (98 tests)
-npm test
-
-# Run individual test suites
-npm run test:extension:run   # 44 tests (detectors, estimation, state machine, sync manager)
-npm run test:backend         # 31 tests (auth, pairing, sync, doomscroll engine, retention, insights)
-npm run test:frontend        # 13 tests (MetricCard, DoomscrollMeter, BreakdownModal, PublicPrivacyPage, etc.)
-npm run test:ai              # 10 tests (health, analytics, pattern detector, internal auth, generator)
-
-# Build all packages
-npm run build
-
-# Package Chrome Extension into store-ready distribution .zip
-npm run package:extension
-# Generates extension/dist-zip/scrollsense-extension-v1.0.0.zip
-```
-
----
-
-## 3. How to Run Locally
+## 2. How to Run Locally
 
 ### Prerequisites
 
@@ -244,11 +223,32 @@ npm run build:extension
 
 ---
 
-<<<<<<< HEAD
+## 3. Testing & Verification
+
+The monorepo contains **98 automated tests across 24 test suites**, all passing:
+
+```bash
+# Run all tests across Extension, Backend, Frontend, and AI Service (98 tests)
+npm test
+
+# Run individual test suites
+npm run test:extension:run   # 44 tests (detectors, estimation, state machine, sync manager)
+npm run test:backend         # 31 tests (auth, pairing, sync, doomscroll engine, retention, insights)
+npm run test:frontend        # 13 tests (MetricCard, DoomscrollMeter, BreakdownModal, PublicPrivacyPage, etc.)
+npm run test:ai              # 10 tests (health, analytics, pattern detector, internal auth, generator)
+
+# Build all packages
+npm run build
+
+# Package Chrome Extension into store-ready distribution .zip
+npm run package:extension
+# Generates extension/dist-zip/scrollsense-extension-v1.0.0.zip
+```
+
+---
+
 ## API Overview
-=======
 ## 4. Verified Behaviors & Known Boundaries
->>>>>>> a2c63252232694df1f02abef67ff31e0dc117263
 
 The Express backend exposes versioned endpoints under `/api/v1`:
 
