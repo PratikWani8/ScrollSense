@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Sparkles, ArrowRight, AlertCircle, Lock, Mail } from 'lucide-react';
+import { ArrowRight, AlertCircle, Lock, Mail } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
@@ -53,9 +53,11 @@ export const LoginPage: React.FC = () => {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-veya-indigo via-[#2E284A] to-veya-surface border border-veya-borderLight text-veya-orchid shadow-lg shadow-black/40 mb-2">
-            <Sparkles className="w-5 h-5" />
-          </div>
+          <img
+            src="/scrollsense_logo.png"
+            alt="ScrollSense logo"
+            className="w-14 h-14 object-contain mx-auto drop-shadow-lg mb-2"
+          />
           <h2 className="text-2xl sm:text-3xl font-bold text-veya-offwhite tracking-tight">
             Sign in to <span className="font-display font-normal italic text-veya-blush">ScrollSense</span>
           </h2>
