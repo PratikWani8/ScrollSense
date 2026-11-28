@@ -107,11 +107,23 @@ export class InPageAlert {
 
     const iconBox = document.createElement('div');
     iconBox.className = 'scrollsense-icon-box';
-    iconBox.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-      </svg>
-    `;
+    const logoUrl =
+      typeof chrome !== 'undefined' && chrome.runtime && typeof chrome.runtime.getURL === 'function'
+        ? chrome.runtime.getURL('icons/icon128.png')
+        : null;
+    if (logoUrl) {
+      const logoImg = document.createElement('img');
+      logoImg.src = logoUrl;
+      logoImg.alt = 'ScrollSense';
+      logoImg.className = 'scrollsense-logo-img';
+      iconBox.appendChild(logoImg);
+    } else {
+      iconBox.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      `;
+    }
 
     const brandTitle = document.createElement('span');
     brandTitle.className = 'scrollsense-brand-name';
@@ -301,14 +313,21 @@ export class InPageAlert {
       }
 
       .scrollsense-icon-box {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         border-radius: 6px;
-        background: linear-gradient(135deg, #6366f1, #06b6d4);
         display: flex;
         align-items: center;
         justify-content: center;
         color: #ffffff;
+        overflow: hidden;
+      }
+
+      .scrollsense-logo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       .scrollsense-brand-name {
